@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — 어벤주부스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-white: #FFFDF9;
+    --ochre: #C8873A;
+    --ochre-light: #E8A85A;
+    --deep-brown: #2C1A0E;
+    --mid-brown: #5C3D22;
+    --soft-brown: #8B6347;
+    --accent-green: #4A6741;
+    --light-green: #E8EDE6;
+    --border: #E2D5C3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--cream);
+    color: var(--deep-brown);
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250, 246, 240, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--ochre);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.9rem;
+    color: var(--soft-brown);
+    margin-left: 0.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--mid-brown);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ochre); }
+  .nav-links a.active {
+    color: var(--ochre);
+    font-weight: 500;
+    border-bottom: 1.5px solid var(--ochre);
+    padding-bottom: 2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding-top: 64px;
+    min-height: 52vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    background: linear-gradient(160deg, var(--warm-white) 0%, #F0E8DA 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,135,58,0.12) 0%, transparent 70%);
+  }
+
+  .hero-text {
+    padding: 6rem 3rem 4rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--ochre);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--deep-brown);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--ochre);
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+    color: var(--soft-brown);
+    max-width: 440px;
+    line-height: 1.8;
+    border-left: 3px solid var(--ochre);
+    padding-left: 1.25rem;
+  }
+
+  .hero-deco {
+    padding: 4rem 4rem 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .hero-badge {
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--warm-white);
+    position: relative;
+  }
+
+  .hero-badge::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 1px dashed var(--border);
+  }
+
+  .hero-badge-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 4rem;
+    color: var(--ochre);
+    line-height: 1;
+  }
+
+  .hero-badge-label {
+    font-size: 0.8rem;
+    color: var(--soft-brown);
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── ORIGIN STORY ── */
+  .origin {
+    background: var(--warm-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .origin-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .origin-sticky {
+    position: sticky;
+    top: 90px;
+  }
+
+  .origin-quote {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--deep-brown);
+    line-height: 1.6;
+    margin-top: 1.25rem;
+  }
+
+  .origin-quote em {
+    font-style: normal;
+    color: var(--ochre);
+  }
+
+  .origin-body p {
+    font-size: 1rem;
+    color: var(--mid-brown);
+    line-height: 1.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .origin-body p strong {
+    color: var(--deep-brown);
+    font-weight: 500;
+  }
+
+  /* ── PROBLEM CARDS ── */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .problem-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(44,26,14,0.08);
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--ochre);
+  }
+
+  .problem-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .problem-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--deep-brown);
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-desc {
+    font-size: 0.875rem;
+    color: var(--soft-brown);
+    line-height: 1.8;
+  }
+
+  /* ── HOW ── */
+  .how {
+    background: var(--deep-brown);
+    color: var(--cream);
+  }
+
+  .how-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem;
+  }
+
+  .how .section-label { color: var(--ochre-light); }
+  .how .section-title { color: var(--cream); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 1rem;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .step {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ochre-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FAF6F0;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .step-desc {
+    font-size: 0.875rem;
+    color: rgba(250,246,240,0.65);
+    line-height: 1.9;
+  }
+
+  .step-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ochre-light);
+    border: 1px solid rgba(200,135,58,0.4);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+
+  /* ── FOOTER CTA ── */
+  .cta-bar {
+    background: var(--ochre);
+    padding: 3.5rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cta-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+  }
+
+  .cta-sub {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.4rem;
+  }
+
+  .cta-btn {
+    flex-shrink: 0;
+    background: #fff;
+    color: var(--ochre);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.9rem 2.25rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .cta-btn:hover { opacity: 0.9; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-deco { display: none; }
+    .hero-text { padding: 6rem 2rem 3rem; }
+    .origin-inner { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 2rem; }
+    .origin-sticky { position: static; }
+    .problems-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .step:last-child { border-bottom: none; }
+    .section { padding: 3rem 2rem; }
+    .how-inner { padding: 3rem 2rem; }
+    .cta-bar { flex-direction: column; align-items: flex-start; padding: 2.5rem 2rem; }
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-text { animation: fadeUp 0.8s ease both; }
+  .hero-badge { animation: fadeUp 0.8s 0.2s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Avenjubus <span>어벤주부스</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Program</a></li>
+    <li><a href="#">AI Diagnosis</a></li>
+    <li><a href="#">롤모델 강연</a></li>
+    <li><a href="#" class="active">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">About Avenjubus</p>
+    <h1 class="hero-title">
+      집안일의 달인,<br>
+      <em>프로주부</em>가<br>
+      창업자가 됩니다
+    </h1>
+    <p class="hero-tagline">
+      재능은 있지만 첫 발을 내딛지 못한 주부들이<br>
+      서로를 일으켜 로컬 창업자로 성장하는<br>
+      커뮤니티 플랫폼
+    </p>
+  </div>
+  <div class="hero-deco">
+    <div class="hero-badge">
+      <span class="hero-badge-num">3</span>
+      <span class="hero-badge-label">단계의 성장 구조<br>커뮤니티 → 롤모델 → 창업</span>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGIN STORY -->
+<section class="origin">
+  <div class="origin-inner">
+    <div class="origin-sticky">
+      <p class="section-label">Origin Story</p>
+      <p class="origin-quote">
+        "능력이 없어서가 아니었습니다.<br>
+        오랜 고립이<br>
+        <em>스스로를 작게</em><br>
+        만들어 놓은 것이었습니다."
+      </p>
+    </div>
+    <div class="origin-body">
+      <p>저는 남자이지만 <strong>헝가리와 미국에서 약 5년간 전업주부 생활</strong>을 했습니다. 주부라는 역할이 얼마나 고되고, 동시에 얼마나 외로운 일인지 몸으로 겪었습니다.</p>
+      <p>이후 팹랩대전·팹랩세종을 운영하고, 정부기관에서 로컬크리에이터 육성사업을 담당하면서 전국 수백 명의 창업자를 만났습니다. 그 중에는 <strong>빛나는 재능을 가진 주부들이 참 많았습니다.</strong> 요리, 목공, 코딩, 경영, 뷰티 — 전문직 수준의 실력을 갖췄지만 이런 말을 하는 분들이 대부분이었습니다.</p>
+      <p style="font-family:'Noto Serif KR',serif; font-size:1.05rem; color:var(--deep-brown); padding: 1.25rem 1.5rem; background:var(--cream); border-left: 3px solid var(--ochre); margin: 0.5rem 0 1.5rem;">
+        "나 같은 사람이 창업을 할 수 있을까요?"
+      </p>
+      <p>마침 저는 퇴사 후 <strong>도시재생 기반의 메이커스페이스·공유주방·오픈스페이스를 운영할 기회</strong>를 얻었습니다. 그 공간을 보는 순간 생각했습니다. 이곳이 바로 그 첫 걸음을 내딛는 자리가 될 수 있겠다고.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="section">
+  <p class="section-label">We Solve</p>
+  <h2 class="section-title">프로주부들이 마주한 세 가지 벽</h2>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <h3 class="problem-title">통로가 없다</h3>
+      <p class="problem-desc">요리·목공·코딩·경영 등 전문적 역량을 갖추고 있으나, 이를 사회·경제적으로 연결해줄 접점이 없습니다.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <h3 class="problem-title">혼자는 너무 무겁다</h3>
+      <p class="problem-desc">육아와 가사로 지친 일상, 경력단절의 낙인은 도전 의지를 꺾습니다. '나도 할 수 있다'는 확신을 함께 만들어줄 동료가 필요합니다.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <h3 class="problem-title">주부의 현실을 모른다</h3>
+      <p class="problem-desc">기존 창업·교육 프로그램들은 자녀 픽업, 가사 병행 같은 주부의 생활 패턴과 심리적 맥락을 반영하지 못합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how">
+  <div class="how-inner">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-title">공간 + 커뮤니티 + 창업 인큐베이팅</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">STEP 01</span>
+        <h3 class="step-title">생활 밀착형<br>커뮤니티 프로그램</h3>
+        <p class="step-desc">메이커스페이스와 공유주방에서 요일별 실용 프로그램을 운영합니다. '이 수업 하나로 이번 주 가족 반찬이 해결된다'처럼, 당장의 삶에 가치를 주는 설계가 핵심입니다.</p>
+        <span class="step-tag">커뮤니티 형성</span>
+      </div>
+      <div class="step">
+        <span class="step-num">STEP 02</span>
+        <h3 class="step-title">롤모델 연결</h3>
+        <p class="step-desc">취미를 창업으로 키운 주부 창업자들의 이야기를 정기 오프라인 컨퍼런스와 유튜브 채널로 전달합니다. '나와 같은 처지에서 저렇게 됐구나'라는 실감이 가장 강한 동기입니다.</p>
+        <span class="step-tag">동기 부여</span>
+      </div>
+      <div class="step">
+        <span class="step-num">STEP 03</span>
+        <h3 class="step-title">창업 인큐베이팅</h3>
+        <p class="step-desc">공유 인프라를 테스트베드로 제공하고, 전국 로컬 크리에이터 네트워크를 통해 멘토링과 판로를 연결합니다. 처음 고객을 만나는 순간까지 함께합니다.</p>
+        <span class="step-tag">실전 창업</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div>
+    <p class="cta-text">프로주부의 첫 걸음을<br>함께 내딛을 준비가 되어 있습니다</p>
+    <p class="cta-sub">조치원 문화공방 · 공유주방 · 오픈스페이스에서 시작됩니다</p>
+  </div>
+  <a href="#" class="cta-btn">프로그램 보러가기 →</a>
+</div>
+
+</body>
+</html>
