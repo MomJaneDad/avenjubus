@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프로 주부 등록하기 | 어벤주부스</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --orange:#a13920;--orange-lt:#fe7d5e;--orange-bg:#fff8f6;
+  --blue:#4a90d9;--blue-bg:#f0f6ff;
+  --purple:#a068c8;--purple-bg:#f7f3fd;
+  --green:#5ba86f;--green-bg:#f0f8f3;
+  --yellow:#e8c200;--yellow-bg:#fffbea;
+  --bg:#f8f6f2;--card:#fff;--border:#e9e8e4;
+  --text:#2e2f2d;--muted:#777774;--sub:#5b5c59;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;}
+
+/* header */
+.header{background:#fff;border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.logo{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:900;color:var(--orange);font-style:italic;text-decoration:none;}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:20px;transition:all .2s;}
+.back-link:hover{border-color:var(--orange);color:var(--orange);}
+
+/* layout */
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px 80px;}
+
+/* hero */
+.hero{background:linear-gradient(135deg,#1c1c2e 0%,#2d1a35 60%,#3a1f20 100%);border-radius:20px;padding:40px 36px 32px;color:#fff;margin-bottom:8px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(224,123,57,.15);}
+.hero::after{content:'🦸‍♀️';position:absolute;right:28px;bottom:16px;font-size:64px;opacity:.25;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(224,123,57,.25);border:1px solid rgba(224,123,57,.4);font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:18px;color:var(--orange-lt);}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(22px,4vw,32px);font-weight:900;line-height:1.25;margin-bottom:12px;}
+.hero h1 span{color:var(--orange-lt);}
+.hero p{font-size:14px;opacity:.75;line-height:1.8;max-width:420px;}
+.hero-stats{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap;}
+.hstat{text-align:center;}
+.hstat-num{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:900;color:var(--orange-lt);}
+.hstat-label{font-size:11px;opacity:.6;margin-top:2px;}
+
+/* step bar */
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin:28px 0;}
+.sdot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid var(--border);color:var(--muted);background:var(--card);transition:all .3s;position:relative;z-index:2;flex-shrink:0;}
+.sdot.act{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 0 0 4px rgba(161,57,32,.15);}
+.sdot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.sline{width:40px;height:2px;background:var(--border);transition:background .3s;}
+.sline.done{background:var(--green);}
+.slabel{position:absolute;top:36px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap;}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-top:16px;transition:box-shadow .2s;}
+.card.active-card{box-shadow:0 4px 24px rgba(161,57,32,.1);border-color:rgba(161,57,32,.2);}
+.card-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:10px;}
+.num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+
+/* inputs */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--sub);margin-bottom:7px;display:flex;align-items:center;gap:4px;}
+.req{color:var(--orange);font-size:12px;}
+.opt{font-size:11px;color:var(--muted);font-weight:400;}
+.field input,.field select,.field textarea{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .2s;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(161,57,32,.08);}
+.field input::placeholder,.field textarea::placeholder{color:#c0bdba;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:480px){.field-row{grid-template-columns:1fr;}}
+
+/* 분야 토글 */
+.field-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.chip{padding:9px 18px;border-radius:50px;border:1.5px solid var(--border);background:#fff;color:var(--sub);font-size:13px;cursor:pointer;transition:all .2s;user-select:none;display:flex;align-items:center;gap:6px;}
+.chip:hover{border-color:var(--orange);background:var(--orange-bg);color:var(--orange);}
+.chip.on{border-color:var(--orange);background:var(--orange-bg);color:var(--orange);font-weight:600;}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .2s;flex-shrink:0;}
+.chip.on .dot{background:var(--orange);}
+.chip-counter{font-size:12px;color:var(--orange);margin-top:8px;font-weight:500;min-height:18px;}
+
+/* 전문성 레벨 */
+.level-row{display:flex;gap:8px;margin-top:8px;}
+.level-btn{flex:1;padding:10px 8px;border:1.5px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:all .2s;background:#fff;}
+.level-btn:hover{border-color:var(--orange);}
+.level-btn.on{border-color:var(--orange);background:var(--orange-bg);}
+.level-btn .lv-emoji{font-size:18px;display:block;margin-bottom:3px;}
+.level-btn .lv-text{font-size:11px;color:var(--sub);font-weight:500;}
+.level-btn.on .lv-text{color:var(--orange);font-weight:700;}
+
+/* SNS 입력 */
+.sns-list{display:flex;flex-direction:column;gap:10px;}
+.sns-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fff;transition:border-color .2s;}
+.sns-item:focus-within{border-color:var(--orange);}
+.sns-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sns-label{font-size:12px;font-weight:700;color:var(--sub);min-width:72px;flex-shrink:0;}
+.sns-item input{flex:1;border:none;outline:none;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--text);background:transparent;}
+.sns-item input::placeholder{color:#c0bdba;}
+
+/* 참여 방식 */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:420px){.role-grid{grid-template-columns:1fr;}}
+.role-card{padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;background:#fff;}
+.role-card:hover{border-color:var(--orange);background:var(--orange-bg);}
+.role-card.on{border-color:var(--orange);background:var(--orange-bg);}
+.role-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.role-emoji{font-size:20px;}
+.role-toggle{width:36px;height:20px;border-radius:10px;background:var(--border);position:relative;transition:background .2s;}
+.role-toggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15);}
+.role-card.on .role-toggle{background:var(--orange);}
+.role-card.on .role-toggle::after{transform:translateX(16px);}
+.role-name{font-size:13px;font-weight:700;color:var(--text);}
+.role-desc{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* 동의 */
+.agree-box{background:#f8f6f2;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px;}
+.agree-info{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.agree-check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.agree-check input[type=checkbox]{width:18px;height:18px;accent-color:var(--orange);flex-shrink:0;margin-top:1px;}
+.agree-check span{font-size:13px;color:var(--sub);line-height:1.6;}
+
+/* 버튼 */
+.btn-row-nav{display:flex;gap:10px;margin-top:24px;}
+.btn-back{padding:13px 20px;border:1.5px solid var(--border);border-radius:12px;background:#fff;font-size:14px;font-weight:600;font-family:'Noto Sans KR',sans-serif;color:var(--sub);cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--orange);color:var(--orange);}
+.btn-next{flex:1;padding:14px;background:var(--orange);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;}
+.btn-next:hover{background:#912d15;transform:translateY(-1px);box-shadow:0 8px 24px rgba(161,57,32,.3);}
+.btn-next:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* 에러 */
+.err-msg{background:#fff0f0;border:1px solid #fcc;border-radius:8px;padding:12px 16px;font-size:13px;color:#c0392b;margin-bottom:14px;display:none;}
+
+/* 성공 */
+.success{display:none;text-align:center;padding:48px 20px;}
+.s-icon{font-size:72px;margin-bottom:20px;animation:pop .5s ease;}
+@keyframes pop{0%{transform:scale(.3) rotate(-10deg);opacity:0}80%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.success h2{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:900;margin-bottom:12px;color:var(--text);}
+.success .sub-msg{font-size:15px;color:var(--sub);line-height:1.8;margin-bottom:24px;}
+.badge-box{background:linear-gradient(135deg,#1c1c2e,#3a1f20);border-radius:16px;padding:28px;margin:0 auto 28px;max-width:320px;}
+.badge-title{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--orange-lt);text-transform:uppercase;margin-bottom:12px;}
+.badge-name{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:4px;}
+.badge-field{font-size:13px;color:rgba(255,255,255,.65);}
+.badge-stamp{display:inline-block;background:var(--orange);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-top:14px;}
+.success-info{background:var(--orange-bg);border:1px solid rgba(161,57,32,.2);border-radius:12px;padding:18px;text-align:left;margin-bottom:24px;}
+.success-info h4{font-size:13px;font-weight:700;color:var(--orange);margin-bottom:8px;}
+.success-info ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.success-info li{font-size:13px;color:var(--sub);display:flex;gap:8px;}
+.success-info li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.btn-home{display:inline-block;padding:13px 32px;border:2px solid var(--orange);color:var(--orange);border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;background:#fff;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+.btn-home:hover{background:var(--orange);color:#fff;}
+
+.foot{text-align:center;font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">Avenjubus</a>
+  <a href="index.html" class="back-link">← 홈으로</a>
+</header>
+
+<div class="wrap">
+
+  <!-- 히어로 -->
+  <div class="hero">
+    <div class="hero-badge">✦ PRO HOUSEWIFE REGISTRATION</div>
+    <h1>나는 <span>프로 주부</span>입니다<br/>어벤주부스에 합류하세요</h1>
+    <p>당신의 능력과 경험은 이미 충분합니다.<br/>함께라면 더 빠르게, 더 즐겁게 시작할 수 있어요.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">5+</div><div class="hstat-label">분야 전문가</div></div>
+      <div class="hstat"><div class="hstat-num">6일</div><div class="hstat-label">주간 프로그램</div></div>
+      <div class="hstat"><div class="hstat-num">∞</div><div class="hstat-label">가능성</div></div>
+    </div>
+  </div>
+
+  <!-- 스텝 바 -->
+  <div class="steps" id="stepBar">
+    <div class="sdot act" id="sd1" style="position:relative">1<span class="slabel">기본정보</span></div>
+    <div class="sline" id="sl1"></div>
+    <div class="sdot" id="sd2" style="position:relative">2<span class="slabel">전문 분야</span></div>
+    <div class="sline" id="sl2"></div>
+    <div class="sdot" id="sd3" style="position:relative">3<span class="slabel">SNS·활동</span></div>
+    <div class="sline" id="sl3"></div>
+    <div class="sdot" id="sd4" style="position:relative">4<span class="slabel">완료</span></div>
+  </div>
+
+  <!-- STEP 1: 기본 정보 -->
+  <div id="step1">
+    <div class="card active-card">
+      <div class="card-title"><span class="num">1</span> 기본 정보</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>이름 <span class="req">*</span></label>
+          <input type="text" id="r-name" placeholder="이름을 입력해주세요"/>
+        </div>
+        <div class="field">
+          <label>닉네임 <span class="opt">(선택)</span></label>
+          <input type="text" id="r-nick" placeholder="예: 요리고수맘, 목공언니"/>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>연락처 <span class="req">*</span></label>
+          <input type="tel" id="r-phone" placeholder="010-0000-0000"
+            oninput="let v=this.value.replace(/\D/g,'');if(v.length>=7)v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);else if(v.length>=3)v=v.slice(0,3)+'-'+v.slice(3);this.value=v;"/>
+        </div>
+        <div class="field">
+          <label>이메일 <span class="opt">(선택)</span></label>
+          <input type="email" id="r-email" placeholder="이메일 주소"/>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>연령대 <span class="req">*</span></label>
+          <select id="r-age">
+            <option value="">선택해주세요</option>
+            <option>20대</option><option>30대</option>
+            <option>40대</option><option>50대</option><option>60대 이상</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>거주 지역 <span class="req">*</span></label>
+          <select id="r-region">
+            <option value="">선택해주세요</option>
+            <option>세종시</option><option>대전</option><option>충청도</option>
+            <option>수도권</option><option>부산·경남</option><option>기타</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>한 줄 자기소개 <span class="opt">(선택)</span></label>
+        <input type="text" id="r-intro" placeholder="예: 10년차 주부이자 전직 마케터, 요리와 콘텐츠가 특기입니다"/>
+      </div>
+
+      <div class="err-msg" id="err1"></div>
+      <div class="btn-row-nav">
+        <button class="btn-next" onclick="goStep(2)">다음 단계 → 전문 분야</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: 전문 분야 -->
+  <div id="step2" style="display:none;">
+    <div class="card active-card">
+      <div class="card-title"><span class="num">2</span> 전문 분야 & 역량</div>
+
+      <div class="field">
+        <label>나의 주요 분야 <span class="req">*</span> <span class="opt">(복수 선택 가능)</span></label>
+        <div class="field-chips" id="fieldChips">
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>요리·베이킹</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>목공·공예</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>뷰티·웰니스</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>육아·놀이교육</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>정리·수납</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>홈카페·음료</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>원예·플라워</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>콘텐츠·SNS</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>디지털·AI</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>마케팅·브랜딩</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>교육·강의</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>디자인·예술</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>요식업·서비스</span>
+          <span class="chip" onclick="tc(this)"><span class="dot"></span>경영·창업</span>
+        </div>
+        <div class="chip-counter" id="fieldCount"></div>
+      </div>
+
+      <div class="field">
+        <label>전문성 수준</label>
+        <div class="level-row" id="levelRow">
+          <div class="level-btn" onclick="sl(this)"><span class="lv-emoji">🌱</span><span class="lv-text">입문·관심</span></div>
+          <div class="level-btn" onclick="sl(this)"><span class="lv-emoji">🌿</span><span class="lv-text">취미·경험</span></div>
+          <div class="level-btn" onclick="sl(this)"><span class="lv-emoji">🌳</span><span class="lv-text">준전문가</span></div>
+          <div class="level-btn" onclick="sl(this)"><span class="lv-emoji">⭐</span><span class="lv-text">전문가</span></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>이전 직장 경력 <span class="opt">(선택)</span></label>
+        <input type="text" id="r-career" placeholder="예: 전직 마케터 7년, 요리 강사 3년, 간호사 등"/>
+      </div>
+
+      <div class="field">
+        <label>나의 이야기 <span class="opt">(선택)</span></label>
+        <textarea id="r-story" rows="3" placeholder="집안일이나 취미를 통해 어떤 능력을 키웠는지, 어떤 꿈이 있는지 자유롭게 써주세요."></textarea>
+      </div>
+
+      <div class="err-msg" id="err2"></div>
+      <div class="btn-row-nav">
+        <button class="btn-back" onclick="goStep(1)">← 이전</button>
+        <button class="btn-next" onclick="goStep(3)">다음 단계 → SNS·활동</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: SNS & 참여 방식 -->
+  <div id="step3" style="display:none;">
+    <div class="card active-card">
+      <div class="card-title"><span class="num">3</span> SNS 채널 & 참여 방식</div>
+
+      <div class="field">
+        <label>SNS 채널 <span class="opt">(선택 · 있는 것만 입력)</span></label>
+        <div class="sns-list">
+          <div class="sns-item">
+            <div class="sns-icon" style="background:#fce4ec;">📸</div>
+            <span class="sns-label">인스타그램</span>
+            <input type="text" id="sns-ig" placeholder="@계정명 또는 URL"/>
+          </div>
+          <div class="sns-item">
+            <div class="sns-icon" style="background:#ffebee;">▶️</div>
+            <span class="sns-label">유튜브</span>
+            <input type="text" id="sns-yt" placeholder="채널명 또는 URL"/>
+          </div>
+          <div class="sns-item">
+            <div class="sns-icon" style="background:#e3f2fd;">✏️</div>
+            <span class="sns-label">블로그</span>
+            <input type="text" id="sns-blog" placeholder="네이버·티스토리 등 URL"/>
+          </div>
+          <div class="sns-item">
+            <div class="sns-icon" style="background:#e8f5e9;">💬</div>
+            <span class="sns-label">기타 채널</span>
+            <input type="text" id="sns-etc" placeholder="틱톡, 브런치, 포트폴리오 등"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:24px;">
+        <label>어벤주부스에서 어떻게 활동하고 싶으세요? <span class="opt">(복수 선택)</span></label>
+        <div class="role-grid" style="margin-top:10px;">
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">📚</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">프로그램 수강</div>
+            <div class="role-desc">평일 수업에 참여하며 역량을 키우고 싶어요</div>
+          </div>
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">🎤</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">강사·멘토</div>
+            <div class="role-desc">나의 전문성으로 수업을 진행하고 싶어요</div>
+          </div>
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">🤝</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">커뮤니티 멤버</div>
+            <div class="role-desc">동료들과 교류하며 함께 성장하고 싶어요</div>
+          </div>
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">🚀</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">창업 준비</div>
+            <div class="role-desc">내 사업을 준비하고 인큐베이팅 받고 싶어요</div>
+          </div>
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">📣</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">콘텐츠·홍보</div>
+            <div class="role-desc">SNS로 어벤주부스 활동을 알리고 싶어요</div>
+          </div>
+          <div class="role-card" onclick="tr(this)">
+            <div class="role-card-top">
+              <span class="role-emoji">🎪</span>
+              <div class="role-toggle"></div>
+            </div>
+            <div class="role-name">행사 운영자</div>
+            <div class="role-desc">주말 체험 프로그램 운영에 참여하고 싶어요</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <div class="agree-box">
+          <div class="agree-info">어벤주부스는 등록 정보를 커뮤니티 운영 및 프로그램 안내에만 활용합니다.<br/>
+          <strong style="color:var(--sub);">수집 항목:</strong> 이름, 연락처, 분야, SNS 정보(선택) &nbsp;|&nbsp;
+          <strong style="color:var(--sub);">보유 기간:</strong> 회원 탈퇴 시까지</div>
+          <label class="agree-check">
+            <input type="checkbox" id="r-agree" required/>
+            <span><strong>개인정보 수집에 동의하며 프로 주부로 등록합니다.</strong> (필수)</span>
+          </label>
+        </div>
+        <div class="err-msg" id="err3"></div>
+        <div class="btn-row-nav">
+          <button class="btn-back" onclick="goStep(2)">← 이전</button>
+          <button class="btn-next" id="submitBtn" onclick="doRegister()">🦸‍♀️ 프로 주부 등록 완료!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 성공 화면 -->
+  <div class="success" id="successBox">
+    <div class="s-icon">🦸‍♀️</div>
+    <h2>어벤주부스의<br/>프로 주부가 되셨습니다!</h2>
+    <p class="sub-msg">함께라면 더 빠르게 빛날 수 있어요.<br/>입력하신 연락처로 환영 메시지를 드릴게요.</p>
+    <div class="badge-box" id="badgeBox">
+      <div class="badge-title">✦ AVENJUBUS MEMBER</div>
+      <div class="badge-name" id="badgeName">홍길동</div>
+      <div class="badge-field" id="badgeField">전문 분야</div>
+      <div><span class="badge-stamp">Pro Housewife ✓</span></div>
+    </div>
+    <div class="success-info" id="successInfo">
+      <h4>✅ 등록 정보 요약</h4>
+      <ul id="successList"></ul>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="index.html" class="btn-home">← 홈으로 돌아가기</a>
+      <a href="apply.html" class="btn-home">프로그램 신청하기 →</a>
+    </div>
+  </div>
+
+  <p class="foot">© 2026 어벤주부스 | 세종시 조치원<br/>문의: avenjubus@gmail.com</p>
+</div>
+
+<script>
+// ── 스텝 이동
+function goStep(n) {
+  if (n === 2 && !validateStep1()) return;
+  if (n === 3 && !validateStep2()) return;
+  [1,2,3].forEach(i => {
+    document.getElementById('step'+i).style.display = i===n ? 'block' : 'none';
+    const dot = document.getElementById('sd'+i);
+    dot.className = 'sdot ' + (i<n ? 'done' : i===n ? 'act' : '');
+  });
+  [1,2,3].forEach(i => {
+    document.getElementById('sl'+i).className = 'sline ' + (i<n ? 'done' : '');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateStep1() {
+  const name   = document.getElementById('r-name').value.trim();
+  const phone  = document.getElementById('r-phone').value.trim();
+  const age    = document.getElementById('r-age').value;
+  const region = document.getElementById('r-region').value;
+  const err    = document.getElementById('err1');
+  if (!name)   { showErr(err, '이름을 입력해주세요.'); return false; }
+  if (phone.replace(/-/g,'').length < 10) { showErr(err, '올바른 연락처를 입력해주세요.'); return false; }
+  if (!age)    { showErr(err, '연령대를 선택해주세요.'); return false; }
+  if (!region) { showErr(err, '거주 지역을 선택해주세요.'); return false; }
+  err.style.display = 'none'; return true;
+}
+
+function validateStep2() {
+  const sel = document.querySelectorAll('#fieldChips .chip.on');
+  const err = document.getElementById('err2');
+  if (!sel.length) { showErr(err, '전문 분야를 최소 1개 선택해주세요.'); return false; }
+  err.style.display = 'none'; return true;
+}
+
+function showErr(el, msg) {
+  el.textContent = '⚠️ ' + msg;
+  el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── 칩 토글
+function tc(el) {
+  el.classList.toggle('on');
+  const cnt = document.querySelectorAll('#fieldChips .chip.on').length;
+  const cc  = document.getElementById('fieldCount');
+  cc.textContent = cnt ? cnt + '개 선택됨: ' + [...document.querySelectorAll('#fieldChips .chip.on')].map(c=>c.textContent.trim()).join(', ') : '';
+}
+
+// ── 레벨 선택
+function sl(el) {
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ── 역할 토글
+function tr(el) { el.classList.toggle('on'); }
+
+// ── 최종 등록
+function doRegister() {
+  const agree = document.getElementById('r-agree').checked;
+  const err   = document.getElementById('err3');
+  const roles = [...document.querySelectorAll('.role-card.on')].map(c => c.querySelector('.role-name').textContent);
+  if (!agree) { showErr(err, '개인정보 수집에 동의해주세요.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '등록 처리 중...';
+
+  setTimeout(() => {
+    const name    = document.getElementById('r-name').value.trim();
+    const nick    = document.getElementById('r-nick').value.trim();
+    const phone   = document.getElementById('r-phone').value.trim();
+    const region  = document.getElementById('r-region').value;
+    const fields  = [...document.querySelectorAll('#fieldChips .chip.on')].map(c=>c.textContent.trim());
+    const level   = document.querySelector('.level-btn.on')?.querySelector('.lv-text')?.textContent || '';
+    const ig      = document.getElementById('sns-ig').value.trim();
+    const yt      = document.getElementById('sns-yt').value.trim();
+    const blog    = document.getElementById('sns-blog').value.trim();
+
+    // 배지
+    document.getElementById('badgeName').textContent = nick || name;
+    document.getElementById('badgeField').textContent = fields.slice(0,3).join(' · ') || '다분야';
+
+    // 요약 리스트
+    const items = [
+      '이름: ' + name + (nick ? ' (' + nick + ')' : ''),
+      '연락처: ' + phone,
+      '지역: ' + region,
+      '전문 분야: ' + fields.join(', '),
+      level ? '전문성: ' + level : null,
+      roles.length ? '활동 방식: ' + roles.join(', ') : null,
+      ig ? '인스타그램: ' + ig : null,
+      yt ? '유튜브: ' + yt : null,
+      blog ? '블로그: ' + blog : null,
+    ].filter(Boolean);
+
+    document.getElementById('successList').innerHTML = items.map(i=>'<li>'+i+'</li>').join('');
+
+    [1,2,3].forEach(i => document.getElementById('step'+i).style.display='none');
+    document.getElementById('successBox').style.display = 'block';
+
+    // 스텝바 4번 완료
+    [1,2,3,4].forEach(i => {
+      document.getElementById('sd'+i).className = 'sdot done';
+    });
+    [1,2,3].forEach(i => document.getElementById('sl'+i).className = 'sline done');
+
+    window.scrollTo({top:0,behavior:'smooth'});
+  }, 1200);
+}
+</script>
+</body>
+</html>

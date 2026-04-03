@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프로그램 참여 신청 | 어벤주부스</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--orange:#a13920;--orange-lt:#fe7d5e;--orange-bg:#fff8f6;--blue:#4a90d9;--blue-bg:#f0f6ff;--purple:#a068c8;--purple-bg:#f7f3fd;--green:#5ba86f;--bg:#f8f6f2;--card:#fff;--border:#e9e8e4;--text:#2e2f2d;--muted:#777774;--sub:#5b5c59;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;}
+.header{background:#fff;border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.logo{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:900;color:var(--orange);font-style:italic;text-decoration:none;}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:20px;transition:all .2s;}
+.back-link:hover{border-color:var(--orange);color:var(--orange);}
+.wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px;}
+.hero{background:linear-gradient(135deg,var(--orange) 0%,var(--orange-lt) 100%);border-radius:20px;padding:36px 32px 28px;color:#fff;margin-bottom:8px;position:relative;overflow:hidden;}
+.hero::after{content:'✦';position:absolute;right:24px;top:20px;font-size:80px;opacity:.1;line-height:1;}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.2);font-size:11px;font-weight:700;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(20px,4vw,28px);font-weight:900;line-height:1.3;margin-bottom:10px;}
+.hero p{font-size:14px;opacity:.85;line-height:1.7;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-top:16px;}
+.card-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;}
+.num{width:26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--sub);margin-bottom:7px;}
+.req{color:var(--orange);margin-left:2px;}
+.field input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .2s;}
+.field input:focus{border-color:var(--orange);}
+.field input::placeholder{color:#bcbcbc;}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.prog-group{margin-bottom:20px;}
+.prog-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;background:#fff;margin-bottom:8px;user-select:none;}
+.prog-item:hover{border-color:rgba(161,57,32,.4);background:var(--orange-bg);}
+.prog-item.sel-orange{border-color:var(--orange);background:var(--orange-bg);}
+.prog-item.sel-blue{border-color:var(--blue);background:var(--blue-bg);}
+.prog-item.sel-purple{border-color:var(--purple);background:var(--purple-bg);}
+.prog-left{display:flex;align-items:center;gap:12px;}
+.prog-emoji{font-size:20px;min-width:28px;text-align:center;}
+.prog-name{font-size:14px;font-weight:600;color:var(--text);}
+.prog-detail{font-size:12px;color:var(--muted);margin-top:2px;}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--border);position:relative;transition:background .25s;flex-shrink:0;}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.sel-orange .toggle{background:var(--orange);}
+.sel-blue .toggle{background:var(--blue);}
+.sel-purple .toggle{background:var(--purple);}
+.sel-orange .toggle::after,.sel-blue .toggle::after,.sel-purple .toggle::after{transform:translateX(20px);}
+.counter{background:var(--orange-bg);border:1px solid rgba(161,57,32,.2);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--orange);font-weight:500;margin-top:4px;display:none;}
+.counter.show{display:block;}
+.agree-box{background:#f8f6f2;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px;}
+.agree-info{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.agree-check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.agree-check input[type=checkbox]{width:18px;height:18px;accent-color:var(--orange);flex-shrink:0;margin-top:1px;cursor:pointer;}
+.agree-check span{font-size:13px;color:var(--sub);line-height:1.6;}
+.err-msg{background:#fff0f0;border:1px solid #fcc;border-radius:8px;padding:12px 16px;font-size:13px;color:#c0392b;margin-bottom:16px;display:none;}
+.submit-btn{width:100%;padding:16px;background:var(--orange);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px;}
+.submit-btn:hover{background:#912d15;transform:translateY(-1px);box-shadow:0 8px 24px rgba(161,57,32,.3);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.success{display:none;text-align:center;padding:48px 20px;}
+.s-icon{font-size:64px;margin-bottom:20px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(.5);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.success h2{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:900;margin-bottom:12px;}
+.success p{font-size:14px;color:var(--sub);line-height:1.8;margin-bottom:8px;}
+.success-box{background:var(--orange-bg);border:1px solid rgba(161,57,32,.2);border-radius:12px;padding:20px;margin:24px 0;text-align:left;}
+.success-box h4{font-size:14px;font-weight:700;color:var(--orange);margin-bottom:10px;}
+.success-box ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.success-box li{font-size:13px;color:var(--sub);display:flex;gap:8px;}
+.success-box li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+.btn-outline{padding:12px 28px;border:2px solid var(--orange);color:var(--orange);border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;display:inline-block;background:#fff;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+.btn-outline:hover{background:var(--orange);color:#fff;}
+.foot{text-align:center;font-size:12px;color:var(--muted);margin-top:24px;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">Avenjubus</a>
+  <a href="index.html" class="back-link">← 홈으로</a>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-tag">PROGRAM APPLICATION</div>
+    <h1>어벤주부스<br/>프로그램 참여 신청</h1>
+    <p>참여하고 싶은 프로그램을 선택하고<br/>간단한 정보를 입력해주세요.</p>
+  </div>
+
+  <form id="applyForm" onsubmit="doSubmit(event)">
+
+    <!-- 1. 신청자 정보 -->
+    <div class="card">
+      <div class="card-title"><span class="num">1</span> 신청자 정보</div>
+      <div class="field">
+        <label>이름 <span class="req">*</span></label>
+        <input type="text" id="f-name" placeholder="이름을 입력해주세요" required/>
+      </div>
+      <div class="field">
+        <label>연락처 <span class="req">*</span></label>
+        <input type="tel" id="f-phone" placeholder="010-0000-0000" required
+          oninput="let v=this.value.replace(/\D/g,'');if(v.length>=7)v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);else if(v.length>=3)v=v.slice(0,3)+'-'+v.slice(3);this.value=v;"/>
+      </div>
+      <div class="field">
+        <label>이메일 <span style="font-size:11px;color:var(--muted);font-weight:400;">(선택)</span></label>
+        <input type="email" id="f-email" placeholder="이메일을 입력해주세요 (선택)"/>
+      </div>
+    </div>
+
+    <!-- 2. 프로그램 선택 -->
+    <div class="card">
+      <div class="card-title"><span class="num">2</span> 참여 프로그램 선택 <span style="font-size:12px;font-weight:400;color:var(--muted);margin-left:4px;">(복수 선택 가능)</span></div>
+
+      <div class="prog-group">
+        <div class="sec-label" style="color:var(--orange);">📅 평일 수업</div>
+        <div class="prog-item" onclick="tp(this,'orange')" data-v="월요일 독서·글쓰기 (주경야독)"><div class="prog-left"><span class="prog-emoji">📚</span><div><div class="prog-name">월요일 — 독서·글쓰기</div><div class="prog-detail">주경야독 | 10:00–16:00 | 잔여 8석</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'orange')" data-v="화요일 요리·체력 (열정의 불)"><div class="prog-left"><span class="prog-emoji">🔥</span><div><div class="prog-name">화요일 — 요리·체력</div><div class="prog-detail">열정의 불 | 10:00–15:30 | 잔여 3석</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'orange')" data-v="수요일 AI 디지털 (AI 데이)"><div class="prog-left"><span class="prog-emoji">🤖</span><div><div class="prog-name">수요일 — AI 디지털</div><div class="prog-detail">AI 데이 | 10:00–15:00 | 잔여 12석</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'orange')" data-v="목요일 목공·만들기 (목공 데이)"><div class="prog-left"><span class="prog-emoji">🪵</span><div><div class="prog-name">목요일 — 목공·만들기</div><div class="prog-detail">목공 데이 | 10:00–16:30 | 잔여 2석</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'orange')" data-v="금요일 뷰티·웰니스 (빛나기)"><div class="prog-left"><span class="prog-emoji">✨</span><div><div class="prog-name">금요일 — 뷰티·웰니스</div><div class="prog-detail">빛나기 | 10:00–15:30 | 잔여 9석</div></div></div><div class="toggle"></div></div>
+      </div>
+
+      <div class="prog-group">
+        <div class="sec-label" style="color:var(--blue);">🎪 주말 행사 — 운영자 신청</div>
+        <div class="prog-item" onclick="tp(this,'blue')" data-v="4월 5일 가족 목공 DIY 운영자"><div class="prog-left"><span class="prog-emoji">🪵</span><div><div class="prog-name">4월 5일 — 가족 목공 DIY 체험</div><div class="prog-detail">운영자 모집 | 목공 보조·스태프</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'blue')" data-v="4월 12일 패브릭 공예 운영자"><div class="prog-left"><span class="prog-emoji">🧵</span><div><div class="prog-name">4월 12일 — 패브릭 공예 워크숍</div><div class="prog-detail">운영자 모집 | 공예 강사·보조</div></div></div><div class="toggle"></div></div>
+      </div>
+
+      <div class="prog-group">
+        <div class="sec-label" style="color:var(--purple);">🎤 롤모델 초청 강연</div>
+        <div class="prog-item" onclick="tp(this,'purple')" data-v="4월 10일 강연 — 김민지"><div class="prog-left"><span class="prog-emoji">👩‍🍳</span><div><div class="prog-name">4월 10일 — 김민지 강연</div><div class="prog-detail">반찬 가게에서 푸드 크리에이터로 | 19:00 | 무료</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'purple')" data-v="4월 17일 강연 — 박수연"><div class="prog-left"><span class="prog-emoji">🪴</span><div><div class="prog-name">4월 17일 — 박수연 강연</div><div class="prog-detail">베란다 정원에서 플라워샵까지 | 19:00 | 무료</div></div></div><div class="toggle"></div></div>
+        <div class="prog-item" onclick="tp(this,'purple')" data-v="5월 8일 강연 — 이소영"><div class="prog-left"><span class="prog-emoji">💻</span><div><div class="prog-name">5월 8일 — 이소영 강연</div><div class="prog-detail">육아휴직 중 앱 하나로 월 500 | 19:00 | 무료</div></div></div><div class="toggle"></div></div>
+      </div>
+
+      <div class="counter" id="counter"></div>
+    </div>
+
+    <!-- 3. 개인정보 동의 -->
+    <div class="card">
+      <div class="card-title"><span class="num">3</span> 개인정보 수집 동의</div>
+      <div class="agree-box">
+        <div class="agree-info">어벤주부스는 프로그램 신청 및 안내를 위해 아래와 같이 개인정보를 수집합니다.<br/>
+        <strong style="color:var(--sub);">수집 항목:</strong> 이름, 연락처, 이메일(선택) &nbsp;|&nbsp;
+        <strong style="color:var(--sub);">보유 기간:</strong> 프로그램 종료 후 3개월</div>
+        <label class="agree-check">
+          <input type="checkbox" id="agree" required/>
+          <span><strong>위 내용에 동의합니다.</strong> (필수)</span>
+        </label>
+      </div>
+      <div class="err-msg" id="errMsg"></div>
+      <button type="submit" class="submit-btn" id="submitBtn">신청 완료하기 →</button>
+    </div>
+  </form>
+
+  <!-- 성공 화면 -->
+  <div class="success" id="successBox">
+    <div class="s-icon">🎉</div>
+    <h2>신청이 완료됐어요!</h2>
+    <p>어벤주부스와 함께할 준비가 됐군요.<br/>입력하신 연락처로 상세 안내를 드릴게요.</p>
+    <div class="success-box">
+      <h4>✅ 신청 내역</h4>
+      <ul id="successList"></ul>
+    </div>
+    <div class="btn-row">
+      <a href="index.html" class="btn-outline">← 홈으로 돌아가기</a>
+      <button onclick="resetForm()" class="btn-outline">추가 신청하기</button>
+    </div>
+  </div>
+
+  <p class="foot">© 2026 어벤주부스 | 세종시 조치원<br/>문의: avenjubus@gmail.com</p>
+</div>
+
+<script>
+function tp(el, color) {
+  const classes = ['sel-orange','sel-blue','sel-purple'];
+  const isOn = classes.some(c => el.classList.contains(c));
+  classes.forEach(c => el.classList.remove(c));
+  if (!isOn) el.classList.add('sel-' + color);
+  updateCounter();
+}
+function getSel() {
+  return [...document.querySelectorAll('.prog-item.sel-orange,.prog-item.sel-blue,.prog-item.sel-purple')]
+    .map(el => el.getAttribute('data-v'));
+}
+function updateCounter() {
+  const sel = getSel();
+  const el = document.getElementById('counter');
+  if (!sel.length) { el.classList.remove('show'); return; }
+  el.classList.add('show');
+  el.innerHTML = '✅ <strong>' + sel.length + '개</strong> 선택됨: ' + sel.map(s => s.split(' ').slice(0,2).join(' ')).join(', ');
+}
+function doSubmit(e) {
+  e.preventDefault();
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const agree = document.getElementById('agree').checked;
+  const sel   = getSel();
+  const err   = document.getElementById('errMsg');
+  if (!name)           { showErr('이름을 입력해주세요.'); return; }
+  if (phone.replace(/-/g,'').length < 10) { showErr('올바른 연락처를 입력해주세요.'); return; }
+  if (!agree)          { showErr('개인정보 수집에 동의해주세요.'); return; }
+  if (!sel.length)     { showErr('참여할 프로그램을 최소 1개 선택해주세요.'); return; }
+  err.style.display = 'none';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '신청 처리 중...';
+  setTimeout(() => {
+    document.getElementById('applyForm').style.display = 'none';
+    const box = document.getElementById('successBox');
+    box.style.display = 'block';
+    const list = document.getElementById('successList');
+    list.innerHTML = '<li>신청자: <strong style="color:var(--text)">' + name + '</strong></li>'
+      + '<li>연락처: ' + phone + '</li>'
+      + sel.map(p => '<li>' + p + '</li>').join('');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }, 1000);
+}
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = '⚠️ ' + msg; el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetForm() {
+  document.getElementById('applyForm').reset();
+  document.getElementById('successBox').style.display = 'none';
+  document.getElementById('applyForm').style.display = 'block';
+  document.querySelectorAll('.prog-item').forEach(el => el.classList.remove('sel-orange','sel-blue','sel-purple'));
+  document.getElementById('counter').classList.remove('show');
+  document.getElementById('errMsg').style.display = 'none';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = false; btn.textContent = '신청 완료하기 →';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
